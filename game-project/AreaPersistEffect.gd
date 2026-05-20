@@ -15,7 +15,8 @@ func _ready() -> void:
 func _on_body_entered(body):
 	var slow_effect = {
 	"source": self,
-	"type": "slow",
+	"type": "debuff",
+	"effect": "slow",
 	"duration": 8,
 	"speed": speed_mod
 }

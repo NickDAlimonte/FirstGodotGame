@@ -1,22 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://kh8bge11bg7h"]
+[gd_scene load_steps=4 format=3 uid="uid://kh8bge11bg7h"]
 
-[ext_resource type="Script" uid="uid://cho2rv1ifdt35" path="res://PlayerController.gd" id="1_xhfnw"]
+[ext_resource type="Script" uid="uid://bslgqfotldyv0" path="res://Player.gd" id="1_xhfnw"]
+[ext_resource type="Script" uid="uid://bi4f87761rmqt" path="res://StatusEffectManager.gd" id="2_kpjcp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xhfnw"]
-size = Vector2(42, 41)
+size = Vector2(40, 40)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="PlayerRoot" type="CharacterBody2D" parent="."]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 script = ExtResource("1_xhfnw")
 
-[node name="ColorRect" type="ColorRect" parent="PlayerRoot"]
-offset_right = 40.0
-offset_bottom = 40.0
-color = Color(0.05490196, 0, 1, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerRoot"]
-position = Vector2(20, 19.5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(20, 20)
 shape = SubResource("RectangleShape2D_xhfnw")
 
-[node name="Camera2D" type="Camera2D" parent="PlayerRoot"]
+[node name="ColorRect" type="ColorRect" parent="CharacterBody2D"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0.03529412, 1, 1)
+
+[node name="StatusEffectManager" type="Node2D" parent="CharacterBody2D"]
+script = ExtResource("2_kpjcp")
