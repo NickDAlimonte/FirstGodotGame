@@ -13,20 +13,23 @@ func add_status_effect(effect):
 			remove_status_effect.bind(key)
 		)
 		
-
 func remove_status_effect(key):
 	active_effects.erase(key)
 	
-
 func get_effects():
 	var speed_modifiers = []
-	var damage = 0
-	var healing = 0
+	var applied = {}
 	
-	for effects in active_effects.values():
-		print(effects)
-		if effects["type"] == "debuff":
-			if effects["effect"] == "slow":
-				speed_modifiers.append(2*effects["speed"])
+	for effect in active_effects.values():
+		var key = str(effect["spell_id"])
+
+		if effect["stackable"] == 0:
+			if applied.has(key) && applied[key]== true:
+				continue
+			applied[key] = true
+		
+		if effect["type"] == "debuff":
+			if effect["effect"] == "slow":
+				speed_modifiers.append(-effect["speed"])
 				
 	return speed_modifiers

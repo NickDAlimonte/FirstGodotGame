@@ -14,6 +14,7 @@ func die():
 @onready var status_effects = $StatusEffectManager
 
 func take_damage(amount, source):
+	print(amount, " Damage taken from ", source)
 	health -= amount
 	if health <= 0:
 		die()
@@ -23,8 +24,9 @@ func add_status_effect(effect):
 	update_speed()
 
 func remove_status_effect(effect):
-	active_effects.erase(effect)
-	print('effect removed')
+	var key = 'effect_' + str(effect["source"])
+	status_effects.remove_status_effect(key)
+	print(effect,' removed')
 	update_speed()
 	
 func update_speed():
