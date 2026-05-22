@@ -1,15 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtp5omw5l1btd"]
+[gd_scene load_steps=2 format=3 uid="uid://dtp5omw5l1btd"]
 
-[ext_resource type="PackedScene" uid="uid://namef5ska3a6" path="res://AreaPersistEffect.tscn" id="1_uu6xs"]
 [ext_resource type="PackedScene" uid="uid://kh8bge11bg7h" path="res://Player.tscn" id="2_r0du0"]
 
 [node name="World" type="Node2D"]
 position = Vector2(992, 514)
 
-[node name="Node2D2" parent="." instance=ExtResource("1_uu6xs")]
-position = Vector2(-165, -124)
-
 [node name="Node2D" parent="." instance=ExtResource("2_r0du0")]
-
-[node name="Node2D3" parent="." instance=ExtResource("1_uu6xs")]
-position = Vector2(29, -124)
