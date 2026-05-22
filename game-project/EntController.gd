@@ -15,8 +15,12 @@ func _process(delta: float):
 	if health > max_health:
 		health = max_health
 		
+	if speed < 0:
+		speed = 0
+		
 	if health == 0:
 		die()
+	
 
 func die():
 	print("Player died")
@@ -29,13 +33,10 @@ func take_damage(amount, source):
 	
 func add_status_effect(effect):
 	status_effects.add_status_effect(effect)
-	update_stats()
 
 func remove_status_effect(effect):
-	var key = 'effect_' + str(effect["source"])
+	var key = (str(effect["source"].get_instance_id()) + ":" + str(effect["aura_id"]))
 	status_effects.remove_status_effect(key)
-	print(effect,' removed')
-	update_stats()
 	
 func update_stats():
 	var speed_mods = status_effects.get_effects()
@@ -51,8 +52,6 @@ func update_stats():
 		print(speed_mod)
 	
 	speed = base_speed + speed_mod
-	if speed < 0:
-		speed = 0
 
 func cast_spell(selected):
 	if selected == null:

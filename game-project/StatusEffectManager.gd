@@ -12,6 +12,7 @@ func add_status_effect(effect):
 		get_tree().create_timer(effect["debuff_duration"]).timeout.connect(
 			remove_status_effect.bind(key)
 		)
+	get_parent().update_stats()
 		
 func remove_status_effect(key):
 	active_effects.erase(key)

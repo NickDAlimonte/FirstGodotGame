@@ -1,26 +1,36 @@
 extends Area2D
 
 var bodies_inside = []
+var spell = {}
 var spell_data = {}
-var effect = {}
+var effects = {}
 var spell_damage
 
 
-func initialize(spell, source):
-	spell_data = spell.duplicate(true)
-	spell_data["source"] = source
+func initialize(spell_used, source):
 	##Effects must be read as a dictionary, otherwise it will crash in the manager
-	effect = spell_data["Effect"]
-	effect["source"] = source
+
+	spell = spell_used.duplicate(true)
+	if spell.has("spell_data"):
+		spell_data = spell["spell_data"]
+		spell.erase("spell_data")
+	
+	for effect_items in spell:
+		spell[effect_items]["source"] = source
+
+
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
-	$TickTime.wait_time = spell_data["tick_rate"]
-	$TickTime.timeout.connect(_on_timer_timeout)
-	$DurationTimer.wait_time = spell_data["spell_duration"]
-	$DurationTimer.timeout.connect(_on_duration_timeout)
-	$DurationTimer.start()
+	if spell_data.has("tick_rate"):
+		$TickTime.wait_time = spell_data["tick_rate"]
+		$TickTime.timeout.connect(_on_timer_timeout)
+	
+	if spell_data.has("spell_duration"):
+		$DurationTimer.wait_time = spell_data["spell_duration"]
+		$DurationTimer.timeout.connect(_on_duration_timeout)
+		$DurationTimer.start()
 	
 	spell_damage = spell_data["spell_damage"]
 
@@ -31,12 +41,14 @@ func _on_body_entered(body):
 	if body.has_method("take_damage") && spell_damage > 0:
 		body.take_damage(spell_damage, self)
 	if body.has_method("add_status_effect"):
-		body.add_status_effect(effect)
+		for effect in spell:
+			body.add_status_effect(spell[effect])
 	
 func _on_body_exited(body):
 	bodies_inside.erase(body)
 	if body.has_method("remove_status_effect"):
-		body.remove_status_effect(effect)
+		for effect in spell:
+			body.remove_status_effect(spell[effect])
 
 	
 func _on_timer_timeout():
