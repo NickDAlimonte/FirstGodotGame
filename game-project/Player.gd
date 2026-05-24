@@ -8,4 +8,5 @@ func _physics_process(delta: float) -> void:
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
-			cast_spell(selected_spell)
+			var mouse_pos := get_global_mouse_position()
+			cast_spell(selected_spell, mouse_pos)

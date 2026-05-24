@@ -53,11 +53,13 @@ func update_stats():
 	
 	speed = base_speed + speed_mod
 
-func cast_spell(selected):
+func cast_spell(selected, spell_position = Vector2(0,0)):
+	
+	
 	if selected == null:
 		var spell_scene = preload("res://scripts/spells/AreaPersistEffect.tscn")
 		
 		var spell = spell_scene.instantiate()
 		spell.initialize(SpellDefinitions.SPELLS["Blizzard"], self)
-		
-		add_child(spell)
+		get_parent().add_child(spell)
+		spell.global_position = spell_position
