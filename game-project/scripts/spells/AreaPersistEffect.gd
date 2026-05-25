@@ -50,7 +50,6 @@ func _on_body_exited(body):
 		for effect in spell:
 			body.remove_status_effect(spell[effect])
 
-	
 func _on_timer_timeout():
 	
 	for body in bodies_inside:
