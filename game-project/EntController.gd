@@ -8,33 +8,30 @@ var selected_spell = null
 @export var max_health: int = 100
 @export var health: int = 100
 @onready var status_effects = $StatusEffectManager
-
-var active_effects = []
+@onready var ent_name = "Entity"
 
 func _process(delta: float):
 	if health > max_health:
 		health = max_health
 		
-	if speed < 0:
-		speed = 0
-		
 	if health <= 0:
 		die()
 	
-
 func die():
-	print("Player died")
-	get_tree().quit()
+	print(ent_name, " died")
+	get_tree().queue_free()
 	
-
 func take_damage(amount, source):
 	health -= amount
+	print(amount, " damage taken from ", source)
+	if health <= 0:
+		die()
 	
 func add_status_effect(effect):
 	status_effects.add_status_effect(effect)
 
 func remove_status_effect(effect):
-	var key = (str(effect["source"].get_instance_id()) + ":" + str(effect["aura_id"]))
+	var key = (str(effect["source"]) + ":" + str(effect["aura_id"]))
 	status_effects.remove_status_effect(key)
 	
 func set_speed():
@@ -43,13 +40,15 @@ func set_speed():
 	for mods in speed_mods:
 		speed_mod += mods
 	speed = base_speed + speed_mod
-
+	if speed < 0:
+		speed = 0
+#ent_name is defined on ready, and must be passed to the spell, to track who cast each spell, and applied effects
 func cast_spell(selected, spell_position = Vector2(0,0)):
 	var spell_scene = preload("res://scripts/spells/AreaPersistEffect.tscn")
 	var spell = spell_scene.instantiate()
 	if selected == 1:
-		spell.initialize(SpellDefinitions.SPELLS["Firewall"], self)
+		spell.initialize(SpellDefinitions.SPELLS["Firewall"], ent_name)
 	elif selected == 0:
-		spell.initialize(SpellDefinitions.SPELLS["Blizzard"], self)
+		spell.initialize(SpellDefinitions.SPELLS["Blizzard"], ent_name)
 	get_parent().add_child(spell)
 	spell.global_position = spell_position

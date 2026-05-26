@@ -10,7 +10,7 @@ func create_timer(duration, one_shot, autostart):
 	return new_timer
 
 func add_status_effect(effect):
-	var key = (str(effect["source"].get_instance_id()) + ":" + str(effect["aura_id"]))
+	var key = (str(effect["source"]) + ":" + str(effect["aura_id"]))
 	if effect["stackable"] == 0 && active_effects.has(key):
 		return
 	
@@ -51,6 +51,5 @@ func get_dots():
 		add_child(dot_timer)
 		
 		dot_timer.timeout.connect(func():
-			get_parent().take_damage(effect['damage'], self)
-			print('damage taken')
+			get_parent().take_damage(effect['damage'], effect['source'])
 			)

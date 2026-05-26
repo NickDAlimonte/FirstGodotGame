@@ -1,5 +1,11 @@
 extends Entity
 
+func _init():
+	ent_name = "Player"
+
+func die():
+	get_tree().quit()
+	
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	velocity = direction * speed
