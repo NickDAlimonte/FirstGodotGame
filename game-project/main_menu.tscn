@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://b13l6s5woj07t"]
+
+[ext_resource type="Script" uid="uid://cbfk6nf36xfbj" path="res://scripts/PlayGame.gd" id="1_06t4h"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7vrkn"]
+font_size = 40
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="PlayGame" type="Button" parent="."]
+offset_left = 310.0
+offset_top = 94.0
+offset_right = 875.0
+offset_bottom = 219.0
+script = ExtResource("1_06t4h")
+
+[node name="Label" type="Label" parent="PlayGame"]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 19.0
+offset_right = 421.0
+offset_bottom = 102.0
+text = "Play Game"
+label_settings = SubResource("LabelSettings_7vrkn")
+horizontal_alignment = 1
+vertical_alignment = 1
