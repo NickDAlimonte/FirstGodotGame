@@ -1,17 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cr86d8r84b7he"]
+[gd_scene format=3 uid="uid://cr86d8r84b7he"]
 
 [ext_resource type="Script" uid="uid://cho2rv1ifdt35" path="res://scripts/EntController.gd" id="1_xhfnw"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xhfnw"]
-size = Vector2(42, 41)
-
-[node name="Node2D" type="Node2D"]
-
-[node name="EntRoot" type="CharacterBody2D" parent="."]
+[node name="EntRoot" type="CharacterBody2D" unique_id=538640021]
 script = ExtResource("1_xhfnw")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntRoot"]
-position = Vector2(20, 19.5)
-shape = SubResource("RectangleShape2D_xhfnw")
-
-[node name="Camera2D" type="Camera2D" parent="EntRoot"]

@@ -19,7 +19,7 @@ func _process(delta: float):
 	
 func die():
 	print(ent_name, " died")
-	get_tree().queue_free()
+	queue_free()
 	
 func take_damage(amount, source):
 	health -= amount
