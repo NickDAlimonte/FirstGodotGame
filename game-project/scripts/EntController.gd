@@ -5,8 +5,8 @@ class_name Entity
 const base_speed: int = 300
 var selected_spell = null
 @export var speed = base_speed
-@export var max_health: int = 100
-@export var health: int = 100
+@export var max_health: int = 400
+@export var health: int = 400
 @onready var status_effects = $StatusEffectManager
 @onready var ent_name = "Entity"
 

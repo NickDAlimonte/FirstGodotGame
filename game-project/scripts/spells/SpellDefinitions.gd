@@ -15,6 +15,14 @@ const SPELLS = {
 			 "slow": 100,
 			"debuff_duration": 8,
 			"stackable": 0
+		},
+		"burn_effect":{
+			"type": "debuff",
+			"aura_id": "1002",
+			"damage": 15,
+			"debuff_duration": 4,
+			"debuff_tick_rate": 2,
+			"stackable": 0
 		}
 	},
 	
@@ -25,13 +33,13 @@ const SPELLS = {
 			"spell_duration": 12,
 			"tick_rate": 1,
 			},
-			"burn_effect":{
-				"type": "debuff",
-				"aura_id": "1001",
-				"damage": 15,
-				"debuff_duration": 10,
-				"debuff_tick_rate": 2,
-				"stackable": 0
+		"burn_effect":{
+			"type": "debuff",
+			"aura_id": "1001",
+			"damage": 15,
+			"debuff_duration": 4,
+			"debuff_tick_rate": 2,
+			"stackable": 0
 		},
 	}
 }

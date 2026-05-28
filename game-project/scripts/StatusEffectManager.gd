@@ -10,8 +10,11 @@ func create_timer(duration, one_shot, autostart):
 	return new_timer
 
 func add_status_effect(effect):
+	
 	var key = (str(effect["source"]) + ":" + str(effect["aura_id"]))
+	
 	if effect["stackable"] == 0 && active_effects.has(key):
+		print("already active: ", active_effects)
 		return
 	
 	active_effects[key] = effect
@@ -20,10 +23,14 @@ func add_status_effect(effect):
 		var debuff_timer = create_timer(effect["debuff_duration"], true, true)
 		add_child(debuff_timer)
 		
-		debuff_timer.timeout.connect(
-			remove_status_effect.bind(key)
+		if effect.has("damage") && effect['type'] == 'debuff' && effect.has('debuff_tick_rate'):
+			var dot_timer = create_timer(effect['debuff_tick_rate'], false, true)
+			get_dots(dot_timer, debuff_timer)
+		
+		debuff_timer.timeout.connect(func():
+			remove_status_effect(key)
+			debuff_timer.queue_free()
 		)
-	get_dots()
 	get_parent().set_speed()
 		
 func remove_status_effect(key):
@@ -41,15 +48,14 @@ func get_slows():
 				
 	return speed_modifiers
 	
-func get_dots():
-	
+func get_dots(dot_timer, debuff_timer):
+	add_child(dot_timer)
 	for effect in active_effects.values():
-		if !effect.has("damage") && !effect.has("debuff") && !effect.has("debuff_tick_rate"):
-			continue
-			
-		var dot_timer = create_timer(effect['debuff_tick_rate'], false, true)
-		add_child(dot_timer)
 		
 		dot_timer.timeout.connect(func():
-			get_parent().take_damage(effect['damage'], effect['source'])
+			if effect.has('damage'):
+				get_parent().take_damage(effect['damage'], effect['source'])
 			)
+	debuff_timer.timeout.connect(func():
+		dot_timer.queue_free()
+		)
