@@ -10,6 +10,9 @@ var selected_spell = null
 @onready var status_effects = $StatusEffectManager
 @onready var ent_name = "Entity"
 
+func _init():
+	print("This is: ",self)
+
 func _process(delta: float):
 	if health > max_health:
 		health = max_health
@@ -44,11 +47,12 @@ func set_speed():
 		speed = 0
 #ent_name is defined on ready, and must be passed to the spell, to track who cast each spell, and applied effects
 func cast_spell(selected, spell_position = Vector2(0,0)):
-	var spell_scene = preload("res://scripts/spells/AreaPersistEffect.tscn")
-	var spell = spell_scene.instantiate()
-	if selected == 1:
-		spell.initialize(SpellDefinitions.SPELLS["Firewall"], ent_name)
-	elif selected == 0:
-		spell.initialize(SpellDefinitions.SPELLS["Blizzard"], ent_name)
-	get_parent().add_child(spell)
-	spell.global_position = spell_position
+	SpellControllerScript.instantiate()
+#	var spell_scene = preload("res://scripts/spells/AreaPersistEffect.tscn")
+#	var spell = spell_scene.instantiate()
+#	if selected == 1:
+#		spell.initialize(SpellDefinitions.SPELLS["Firewall"], ent_name)
+#	elif selected == 0:
+#		spell.initialize(SpellDefinitions.SPELLS["Blizzard"], ent_name)
+#	get_parent().add_child(spell)
+#	spell.global_position = spell_position

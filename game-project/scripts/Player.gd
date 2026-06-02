@@ -1,6 +1,6 @@
 extends Entity
 
-func _init():
+func _ready():
 	ent_name = "Player"
 
 func die():

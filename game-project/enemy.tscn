@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c7npbc42w4flt"]
+[gd_scene load_steps=0 format=3 uid="uid://c7npbc42w4flt"]
 
 [ext_resource type="Script" uid="uid://dfwfhqko66ji7" path="res://enemy.gd" id="1_7k104"]
 [ext_resource type="Script" uid="uid://bi4f87761rmqt" path="res://scripts/StatusEffectManager.gd" id="2_qi2p4"]

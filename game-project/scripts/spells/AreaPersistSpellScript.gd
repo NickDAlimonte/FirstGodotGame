@@ -52,7 +52,7 @@ func _on_body_exited(body):
 	bodies_inside.erase(body)
 	if body.has_method("remove_status_effect"):
 		for effect in spell:
-			if !spell[effect].has('damage'):
+			if !spell[effect].has('debuff_duration'):
 				body.remove_status_effect(spell[effect])
 
 func _on_timer_timeout():

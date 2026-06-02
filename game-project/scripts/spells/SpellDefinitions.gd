@@ -4,6 +4,7 @@ class_name SpellDefinitions
 const SPELLS = {
 	"Blizzard":{
 		"spell_data":{
+			"spell_type": "area",
 			"spell_id": "1000",
 			"spell_damage": 5,
 			"spell_duration": 6,
@@ -16,14 +17,6 @@ const SPELLS = {
 			"debuff_duration": 8,
 			"stackable": 0
 		},
-		"burn_effect":{
-			"type": "debuff",
-			"aura_id": "1002",
-			"damage": 15,
-			"debuff_duration": 4,
-			"debuff_tick_rate": 2,
-			"stackable": 0
-		}
 	},
 	
 	"Firewall":{
