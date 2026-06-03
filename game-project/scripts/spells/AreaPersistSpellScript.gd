@@ -44,9 +44,9 @@ func _on_body_entered(body):
 	bodies_inside.append(body)
 	if body.has_method("take_damage") && spell_damage > 0:
 		body.take_damage(spell_damage, caster)
-	if body.has_method("add_status_effect"):
+	if body.has_method("apply_status_effect"):
 		for effect in spell:
-			body.add_status_effect(spell[effect])
+			body.apply_status_effect(spell[effect])
 	
 func _on_body_exited(body):
 	bodies_inside.erase(body)

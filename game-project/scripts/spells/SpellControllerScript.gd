@@ -1,14 +1,12 @@
 extends Node2D
 class_name SpellController
-var spell
-var source
 
-func select_spell_type(spell_cast, spell_source):
-	spell = spell_cast.duplicate(true)
-	source = spell_source
-	
-	if spell_cast.has("spell_type") && spell_cast["spell_type"] == "area":
-		pass
+static func determine_spell_type(spell_cast, spell_source):
+	var spell = spell_cast.duplicate(true)
+	var source = spell_source
+	print(spell["spell_data"]["spell_type"])
+	if spell.has("spell_data") && spell["spell_data"].has("spell_type") && spell["spell_data"]["spell_type"] == "area_persist":
+		var spell_scene = preload("res://scripts/spells/AreaPersistEffect.tscn")
+		var create_spell = spell_scene.instantiate()
 		
-	else:
-		print("test")
+		create_spell.initialize(spell, source)

@@ -10,8 +10,6 @@ var selected_spell = null
 @onready var status_effects = $StatusEffectManager
 @onready var ent_name = "Entity"
 
-func _init():
-	print("This is: ",self)
 
 func _process(delta: float):
 	if health > max_health:
@@ -30,13 +28,14 @@ func take_damage(amount, source):
 	if health <= 0:
 		die()
 	
-func add_status_effect(effect):
-	status_effects.add_status_effect(effect)
+func apply_status_effect(effect: Dictionary, source = null):
+	status_effects.determine_type(effect, source)
 
 func remove_status_effect(effect):
-	var key = (str(effect["source"]) + ":" + str(effect["aura_id"]))
-	status_effects.remove_status_effect(key)
-	
+	pass
+#	var key = (str(effect["source"]) + ":" + str(effect["aura_id"]))
+#	status_effects.remove_status_effect(key)
+
 func set_speed():
 	var speed_mods = status_effects.get_slows()
 	var speed_mod = 0
@@ -47,12 +46,4 @@ func set_speed():
 		speed = 0
 #ent_name is defined on ready, and must be passed to the spell, to track who cast each spell, and applied effects
 func cast_spell(selected, spell_position = Vector2(0,0)):
-	SpellControllerScript.instantiate()
-#	var spell_scene = preload("res://scripts/spells/AreaPersistEffect.tscn")
-#	var spell = spell_scene.instantiate()
-#	if selected == 1:
-#		spell.initialize(SpellDefinitions.SPELLS["Firewall"], ent_name)
-#	elif selected == 0:
-#		spell.initialize(SpellDefinitions.SPELLS["Blizzard"], ent_name)
-#	get_parent().add_child(spell)
-#	spell.global_position = spell_position
+	SpellController.determine_spell_type(SpellDefinitions.SPELLS['Blizzard'], ent_name)
