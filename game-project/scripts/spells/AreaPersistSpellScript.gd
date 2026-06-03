@@ -17,11 +17,6 @@ func initialize(spell_used, source):
 		spell_data = spell["spell_data"]
 		spell.erase("spell_data")
 	
-	for effect_items in spell:
-		spell[effect_items]["source"] = source
-		print("The source is: ", source)
-		
-	print(source)
 
 func _ready() -> void:
 	assert(initialize, "Spell was instantiated without initialize()")
@@ -46,14 +41,14 @@ func _on_body_entered(body):
 		body.take_damage(spell_damage, caster)
 	if body.has_method("apply_status_effect"):
 		for effect in spell:
-			body.apply_status_effect(spell[effect])
+			body.apply_status_effect(spell, caster)
 	
 func _on_body_exited(body):
 	bodies_inside.erase(body)
 	if body.has_method("remove_status_effect"):
 		for effect in spell:
 			if !spell[effect].has('debuff_duration'):
-				body.remove_status_effect(spell[effect])
+				body.remove_status_effect(spell[effect], caster)
 
 func _on_timer_timeout():
 	

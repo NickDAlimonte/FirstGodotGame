@@ -29,13 +29,13 @@ const SPELLS = {
 			"spell_duration": 12,
 			"tick_rate": 1,
 			},
-		"burn_effect":{
-			"type": "debuff",
-			"aura_id": "1001",
-			"damage": 15,
-			"debuff_duration": 4,
-			"debuff_tick_rate": 2,
-			"stackable": 0
-		},
+			
+			"effects":{
+				"burn":{
+					"power": 100,
+					"duration": 5,
+					"stackable": 0,
+				}
+			},
 	}
 }

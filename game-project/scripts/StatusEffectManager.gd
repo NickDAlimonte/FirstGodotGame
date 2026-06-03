@@ -9,11 +9,17 @@ func create_timer(duration, one_shot, autostart):
 	new_timer.autostart = autostart
 	return new_timer
 	
-func determine_type(effect, source):
-	print(effect)
-	if effect.has("slow"):
-		print(effect['slow'], source)
+func determine_effect(effect, source):
+	for effect_type in effect['effects']:
+		match effect_type:
+			"slow":
+				create_effect(effect['effects']['slow'], source)
+			"burn":
+				print("This is a burn")
 
+func create_effect(effect, source = null):
+	pass
+	
 #func add_status_effect(effect):
 #	
 #	var key = (str(effect["source"]) + ":" + str(effect["aura_id"]))

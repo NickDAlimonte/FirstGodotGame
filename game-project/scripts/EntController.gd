@@ -24,14 +24,14 @@ func die():
 	
 func take_damage(amount, source):
 	health -= amount
-	print(amount, " damage taken from ", source)
+	print(amount, " damage taken from ", source.ent_name)
 	if health <= 0:
 		die()
 	
 func apply_status_effect(effect: Dictionary, source = null):
-	status_effects.determine_type(effect, source)
+	status_effects.determine_effect(effect, source)
 
-func remove_status_effect(effect):
+func remove_status_effect(effect, source):
 	pass
 #	var key = (str(effect["source"]) + ":" + str(effect["aura_id"]))
 #	status_effects.remove_status_effect(key)
@@ -44,6 +44,13 @@ func set_speed():
 	speed = base_speed + speed_mod
 	if speed < 0:
 		speed = 0
-#ent_name is defined on ready, and must be passed to the spell, to track who cast each spell, and applied effects
+#cast_spell sends spell and entity data to a helper function in the spellcontroller which will determine how to handle that information
+#create spell gets passed the information from cast_spell and instantiates the ability.
 func cast_spell(selected, spell_position = Vector2(0,0)):
-	SpellController.determine_spell_type(SpellDefinitions.SPELLS['Blizzard'], ent_name)
+	if selected == 0:
+		SpellController.determine_spell_type(SpellDefinitions.SPELLS['Blizzard'], self)
+	if selected == 1:
+		SpellController.determine_spell_type(SpellDefinitions.SPELLS['Firewall'], self)
+
+func create_spell(spell):
+	get_parent().add_child(spell)
